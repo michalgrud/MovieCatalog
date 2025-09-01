@@ -176,7 +176,7 @@ Removes the DB record and the file.
 
 `POST /api/movies/recalculate`
 
-Recomputes rank for all movies and returns a list of updated DTOs.
+Recomputes rank for all movies, save and returns a list of updated DTOs.
 
 ---
 
@@ -209,30 +209,8 @@ Recomputes rank for all movies and returns a list of updated DTOs.
 * **Movie already exists / not found:** validation error
 * **Invalid sort field:** `IllegalArgumentException` (only `fileSize` or `rankScore` are allowed)
 
-> Add a `@ControllerAdvice` if you want consistent HTTP status mapping for the custom exceptions (e.g., `400` for validation, `404` for not found).
-
 ---
 
 ## Local DigiKat mock data
 
 For **local/test** profiles, place JSON files under `src/main/resources/mocks/**`. The mock client loads:
-
-* either a single JSON object with `DigiKatResponse`,
-* or an array of such objects.
-
-This allows you to seed “remote” data without network calls.
-
----
-
-## Notes & Next steps
-
-* Consider encoding the query parameter in `DigiKatClientHTTP` with `uriBuilder.queryParam("film", title)` to safely handle spaces/non-ASCII titles.
-* Optionally implement ETag/range requests for downloads.
-* Add indices on frequently sorted columns (`fileSize`, `rankScore`) for larger datasets.
-* If you’re on Spring Boot 3.4+, prefer `@MockitoBean` over deprecated `@MockBean` in integration tests.
-
----
-
-## License
-
-MIT (or your preferred license). Add a `LICENSE` file if you want to publish the project under a specific license.
